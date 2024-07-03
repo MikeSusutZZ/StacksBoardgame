@@ -51,4 +51,4 @@ class Stack:
         return atk, def_, spd
 
     def __repr__(self):
-        return f"Stack(type={self.type})"
+        return f"{self.type}"

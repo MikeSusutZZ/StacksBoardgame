@@ -58,5 +58,4 @@ class Piece:
             self.atk, self.def_, self.spd = stack.apply(self.atk, self.def_, self.spd)
 
     def __repr__(self):
-        return (f"Piece(id={self.id}, owner={self.owner}, atk={self.atk}, "
-                f"def={self.def_}, spd={self.spd}, stacks={self.stacks})")
+        return (f"Piece(id={self.id}, owner={self.owner}, stacks={self.stacks})")
