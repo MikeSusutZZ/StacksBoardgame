@@ -1,26 +1,33 @@
+from board import Board
+from piece import Piece
+from constants import BOARD_SIZE
+
 class Game (object):
     def __init__(self):
-        self.grid = [[None for _ in range(5)] for _ in range(5)]
-    def place_piece(self, piece, x, y):
-        if 0 <= x < 5 and 0 <= y < 5 and self.grid[x][y] is None:
-            self.grid[x][y] = piece
-        else:
-            raise ValueError("Invalid position or position already occupied")
-        
-    def move(self, from_x, from_y, to_x, to_y):
-        if not (0 <= from_x < 5 and 0 <= from_y < 5):
-            raise ValueError("Invalid 'from' position")
-        if not (0 <= to_x < 5 and 0 <= to_y < 5):
-            raise ValueError("Invalid 'to' position")
-        if self.grid[from_x][from_y] is None:
-            raise ValueError("No piece at 'from' position")
-        if self.grid[to_x][to_y] is not None:
-            raise ValueError("Destination position already occupied")
-        self.grid[to_x][to_y] = self.grid[from_x][from_y]
-        self.grid[from_x][from_y] = None
+        self.board = Board()
+        for i in range(BOARD_SIZE):
+            self.board.place_piece(Piece(i, "P1"), 0, i)
+            self.board.place_piece(Piece(i, "P2"), 4, i)
 
     def start(self):
+        while True:
+            print(self.board)
+            from_coords = input("Enter the coordinates of the piece to move (format: x,y): ")
+            to_coords = input("Enter the destination coordinates (format: x,y): ")
 
+            from_x, from_y = map(int, from_coords.split(','))
+            to_x, to_y = map(int, to_coords.split(','))
+
+            try:
+                self.board.move(from_x, from_y, to_x, to_y)
+            except ValueError as e:
+                print(f"Error: {e}")
+            except Exception as e:
+                print(f"Unexpected error: {e}")
+
+            cont = input("Do you want to make another move? (y/n): ").strip().lower()
+            if cont != 'y':
+                break
 
     def __repr__(self):
         board_repr = ""

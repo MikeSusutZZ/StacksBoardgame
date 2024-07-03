@@ -1,4 +1,5 @@
 from piece import Piece
+from constants import BOARD_SIZE
 
 class Board:
     """
@@ -13,7 +14,7 @@ class Board:
         """
         Initializes a new 5x5 game board.
         """
-        self.grid = [[None for _ in range()] for _ in range(5)]
+        self.grid = [[None for _ in range(BOARD_SIZE)] for _ in range(BOARD_SIZE)]
 
     def place_piece(self, piece, x, y):
         """

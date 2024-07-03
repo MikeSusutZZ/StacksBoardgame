@@ -7,6 +7,7 @@ def main():
     game.start()
     # piece1 = Piece(1, "P1")
     # piece2 = Piece(2, "P2")
+
     
     # board = Board()
     # board.place_piece(piece1, 2, 3)
