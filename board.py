@@ -55,13 +55,32 @@ class Board:
         if self.grid[from_x][from_y] is None:
             raise ValueError("No piece at 'from' position")
         if self.grid[to_x][to_y] is not None:
-            raise ValueError("Destination position already occupied")
+            if self.grid[to_x][to_y].owner == self.grid[from_x][from_y].owner:
+                raise ValueError("Cannot move to a position occupied by your own piece")
 
-        self.grid[to_x][to_y] = self.grid[from_x][from_y]
-        self.grid[from_x][from_y] = None
+            # Check for capture
+            attacker = self.grid[from_x][from_y]
+            defender = self.grid[to_x][to_y]
+            if attacker.atk >= defender.def_:
+                # Capture the piece
+                self.grid[to_x][to_y] = attacker
+                self.grid[from_x][from_y] = None
+                print(f"Piece {defender} captured by {attacker}")
+            else:
+                # Do not move and pop a stack from the defender
+                if defender.stacks:
+                    defender.stacks.pop()
+                    defender.update_stats()
+                    print(f"Defender {defender} lost a stack due to attack from {attacker}")
+                else:
+                    print(f"Defender {defender} has no stacks left to pop")
+                return
+        else:
+            self.grid[to_x][to_y] = self.grid[from_x][from_y]
+            self.grid[from_x][from_y] = None
 
     def __repr__(self):
         board_repr = ""
         for row in self.grid:
-            board_repr += "[" + "\t|\t".join([f"{str(piece):<2}" if piece else "" for piece in row]) + "]" +  "\n"
+            board_repr += "[" + "\t|\t".join([f"O" if piece else "" for piece in row]) + "]" +  "\n"
         return board_repr
