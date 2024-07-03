@@ -13,7 +13,7 @@ class Board:
         """
         Initializes a new 5x5 game board.
         """
-        self.grid = [[None for _ in range(5)] for _ in range(5)]
+        self.grid = [[None for _ in range()] for _ in range(5)]
 
     def place_piece(self, piece, x, y):
         """
