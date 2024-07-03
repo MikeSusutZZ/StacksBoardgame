@@ -33,6 +33,33 @@ class Board:
         else:
             raise ValueError("Invalid position or position already occupied")
 
+    def move(self, from_x, from_y, to_x, to_y):
+        """
+        Moves a piece from one coordinate to another.
+        
+        Parameters:
+        -----------
+        from_x : int
+            The x-coordinate (row) of the piece to move.
+        from_y : int
+            The y-coordinate (column) of the piece to move.
+        to_x : int
+            The x-coordinate (row) where the piece will be moved.
+        to_y : int
+            The y-coordinate (column) where the piece will be moved.
+        """
+        if not (0 <= from_x < 5 and 0 <= from_y < 5):
+            raise ValueError("Invalid 'from' position")
+        if not (0 <= to_x < 5 and 0 <= to_y < 5):
+            raise ValueError("Invalid 'to' position")
+        if self.grid[from_x][from_y] is None:
+            raise ValueError("No piece at 'from' position")
+        if self.grid[to_x][to_y] is not None:
+            raise ValueError("Destination position already occupied")
+
+        self.grid[to_x][to_y] = self.grid[from_x][from_y]
+        self.grid[from_x][from_y] = None
+
     def __repr__(self):
         board_repr = ""
         for row in self.grid:
