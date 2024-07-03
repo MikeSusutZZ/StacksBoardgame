@@ -24,4 +24,4 @@ class Piece:
         self.owner = owner
 
     def __repr__(self):
-        return f"Piece(id={self.id}, owner={self.owner})"
+        return f"{self.id},{self.owner}"

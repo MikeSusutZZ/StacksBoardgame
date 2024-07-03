@@ -36,5 +36,5 @@ class Board:
     def __repr__(self):
         board_repr = ""
         for row in self.grid:
-            board_repr += " | ".join([str(piece) if piece else " " for piece in row]) + "\n"
+            board_repr += " | ".join([f"{str(piece):<2}" if piece else "  " for piece in row]) + "\n"
         return board_repr
